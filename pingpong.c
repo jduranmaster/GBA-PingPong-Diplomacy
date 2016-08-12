@@ -34,6 +34,8 @@
 #include "tabmaonix.h"   //intro screen. For text.
 #include "tabusavsch1.h"  //table tennis. EEUU vs China.
 #include "tabusavsch2.h"  //table tennis. EEUU vs China.
+#include "usacpuwins.h"   // USA-CPU Win Splash
+#include "chinacpuwins.h" // China-CPU Win Splash
 
 //some useful colors
 #define BLACK 0x0000
@@ -629,6 +631,70 @@ void showUSAEnding()
 	Sleep(6500);
 }
 
+void showPlayerDefeatedByChina()
+{
+	int loop;
+	
+	EraseScreen();
+	
+	for(loop=0;loop<256;loop++) {
+      	ScreenPal[loop] = chinacpuwinsPalette[loop];     
+   	}
+
+   	for(loop=0;loop<19200;loop++) {
+      	ScreenBuffer[loop] = chinacpuwinsData[loop];
+   	}
+	
+   	WaitForVblank();
+	Flip();
+	Sleep(10000);
+	EraseScreen();
+	
+	for(loop=0;loop<256;loop++) {
+      	ScreenPal[loop] = tabmaonixPalette[loop];     
+   	}
+
+   	for(loop=0;loop<19200;loop++) {
+      	ScreenBuffer[loop] = tabmaonixdata[loop];
+   	}
+	
+   	WaitForVblank();
+	Flip();
+	Sleep(6500);
+}
+
+showPlayerDefeatedByEEUU()
+{
+	int loop;
+	
+	EraseScreen();
+	
+	for(loop=0;loop<256;loop++) {
+      	ScreenPal[loop] = usacpuwinsPalette[loop];     
+   	}
+
+   	for(loop=0;loop<19200;loop++) {
+      	ScreenBuffer[loop] = usacpuwinsData[loop];
+   	}
+	
+   	WaitForVblank();
+	Flip();
+	Sleep(10000);
+	EraseScreen();
+	
+	for(loop=0;loop<256;loop++) {
+      	ScreenPal[loop] = tabmaonixPalette[loop];     
+   	}
+
+   	for(loop=0;loop<19200;loop++) {
+      	ScreenBuffer[loop] = tabmaonixdata[loop];
+   	}
+	
+   	WaitForVblank();
+	Flip();
+	Sleep(6500);
+}
+
 int main(void)
 {
     //Enable background 2 and set mode to MODE_4
@@ -686,7 +752,8 @@ int main(void)
 			    
 			    //Enable background 2 and set mode to MODE_4
 				setMode(MODE_4 | OBJ_MAP_1D | BG2_ENABLE);
-			    showChinaEnding();
+			    //showChinaEnding();
+				showPlayerDefeatedByEEUU();
 			    EraseScreen();
 		    }
 		    if(score2 == MAX_POINTS_TO_WIN && state ==  1){ // CPU-USA
@@ -695,7 +762,8 @@ int main(void)
 			    
 			    //Enable background 2 and set mode to MODE_4
 				setMode(MODE_4 | OBJ_MAP_1D | BG2_ENABLE);
-			    showUSAEnding();
+			    //showUSAEnding();
+				showPlayerDefeatedByChina();
 			    EraseScreen();
 		    }   
 		    
